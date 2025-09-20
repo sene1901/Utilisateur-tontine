@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cotisationLink = document.querySelector('.sidebar a[data-page="Cotisation.html"]'); // Cotisations
   const utilisateurBtn = document.querySelector('.accordion-button'); // Utilisateurs
+  const subLinks = document.querySelectorAll('.accordion-body a[data-page]'); // Sous-menus
   const content = document.getElementById("main-content");
-  const navbarTitle = document.querySelector(".navbar .navbar-brand"); // titre navbar
+  const navbarTitle = document.querySelector(".navbar .navbar-brand");
 
   function loadPage(page, title = "") {
     fetch(page)
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         content.innerHTML = data;
         if (title) {
-          navbarTitle.textContent = title; // ✅ changer le titre seulement si fourni
+          navbarTitle.textContent = title;
         }
       })
       .catch(() => {
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Charger Cotisation par défaut
+  // ✅ Charger Cotisations par défaut
   loadPage("Cotisation.html", "Cotisations");
 
   // ✅ Clic sur Cotisations
@@ -28,8 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPage("Cotisation.html", "Cotisations");
   });
 
-  // ✅ Clic sur Utilisateurs
+  // ✅ Clic sur Utilisateurs → change seulement le titre
   utilisateurBtn.addEventListener("click", () => {
     navbarTitle.textContent = "Profil";
+  });
+
+  // ✅ Sous-menus (Informations, Changer mot de passe, etc.)
+  subLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const page = link.getAttribute("data-page");
+      if (page) {
+        loadPage(page); 
+        // 🚨 NE PAS changer le titre → reste "Profil"
+      }
+    });
   });
 });

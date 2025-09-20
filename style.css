@@ -45,7 +45,6 @@
     /* Contenu principal */
     .content {
       margin-left: 250px;
-       /* margin-top: 20px;  */
       padding: 20px;
     }
     .carte{
@@ -94,6 +93,7 @@ background-color:#00c853;
       padding: 15px;
       background: #fff;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 15px;
     }
@@ -120,7 +120,17 @@ background-color:#00c853;
     }
      .pagination { margin: 0; }
      
-     
+      @media screen and (max-width: 1024px) {
+        .icone-caisse{
+           width: 40px;
+      height: 60px;
+        }
+        .fa-sack-dollar {
+          font-size: 12px;
+        }
+        
+      }
+
     
  
  
